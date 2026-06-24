@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shop the best deals on Electronics, Clothing, and Home goods. High quality products, fast shipping, and secure checkouts.">
+  <title>Apex Store | Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Loader Overlay -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span>ApexStore</span>
+      </a>
+      <nav class="nav-menu" id="nav-auth">
+        <!-- Filled dynamically by auth.js based on session state -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Storefront Layout -->
+  <main>
+    <div class="catalog-header">
+      <h1>Explore Our Catalog</h1>
+      
+      <!-- Search and Filter Form -->
+      <div class="filters-wrapper">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" class="form-control" placeholder="Search products..." aria-label="Search products">
+        </div>
+        <select id="category-filter" class="form-control category-select" aria-label="Filter by Category">
+          <option value="">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Home & Kitchen">Home & Kitchen</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Card Grid -->
+    <div class="product-grid" id="product-grid">
+      <!-- Generated dynamically by products.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 ApexStore Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Javascript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+
+  <!-- Page specific bootstrapping -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('search-input');
+      const categoryFilter = document.getElementById('category-filter');
+
+      // Fetch and render initial product catalog
+      fetchAndRenderProducts();
+
+      // Implement search input handler with a simple debounce
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          fetchAndRenderProducts(searchInput.value, categoryFilter.value);
+        }, 300);
+      });
+
+      // Implement category selection handler
+      categoryFilter.addEventListener('change', () => {
+        fetchAndRenderProducts(searchInput.value, categoryFilter.value);
+      });
+    });
+  </script>
+</body>
+</html>

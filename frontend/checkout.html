@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Securely checkout your purchase by entering shipping address details and mock payment details.">
+  <title>Apex Store | Checkout</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Loader Overlay -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span>ApexStore</span>
+      </a>
+      <nav class="nav-menu" id="nav-auth">
+        <!-- Filled dynamically by auth.js based on session state -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- Checkout Workspace Layout -->
+  <main id="checkout-page-container">
+    <h1 class="checkout-page-title">Secure Checkout</h1>
+    
+    <div class="checkout-layout-grid">
+      <!-- Shipping Form Section -->
+      <div class="checkout-form-section">
+        <form id="checkout-form">
+          
+          <!-- Shipping Address Box -->
+          <div class="checkout-box" style="margin-bottom: 2rem;">
+            <h3>1. Shipping Address</h3>
+            <div class="checkout-form-grid">
+              
+              <div class="form-group full-width">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="address">Address Line</label>
+                <input type="text" id="address" class="form-control" placeholder="123 Main St, Apt 4B" required>
+              </div>
+
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" class="form-control" placeholder="Seattle" required>
+              </div>
+
+              <div class="form-group">
+                <label for="state">State / Province</label>
+                <input type="text" id="state" class="form-control" placeholder="WA" required>
+              </div>
+
+              <div class="form-group">
+                <label for="zip">ZIP / Postal Code</label>
+                <input type="text" id="zip" class="form-control" placeholder="98101" required>
+              </div>
+
+              <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" class="form-control" required>
+                  <option value="" disabled selected>Select Country</option>
+                  <option value="United States">United States</option>
+                  <option value="Canada">Canada</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="India">India</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Dummy Payment Info Box -->
+          <div class="checkout-box">
+            <h3>2. Payment Information</h3>
+            <div class="payment-placeholder-banner">
+              <strong>🔒 Demo Mode Enabled:</strong> No actual charges will be processed. Enter any mock values to complete validation (e.g. 16 digits card, 3 digits CVV).
+            </div>
+            
+            <div class="checkout-form-grid">
+              
+              <div class="form-group full-width">
+                <label for="cardName">Name on Card</label>
+                <input type="text" id="cardName" class="form-control" placeholder="John Doe" required>
+              </div>
+
+              <div class="payment-card-inputs full-width">
+                <div class="form-group cardNumber-wrapper">
+                  <label for="cardNumber">Card Number</label>
+                  <input type="text" id="cardNumber" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="cardExpiry">Expiration (MM/YY)</label>
+                  <input type="text" id="cardExpiry" class="form-control" placeholder="12/28" maxlength="5" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="cardCvv">CVV</label>
+                  <input type="password" id="cardCvv" class="form-control" placeholder="000" maxlength="3" required>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Checkout Items Side-drawer -->
+      <div class="checkout-summary-section">
+        <div class="summary-card">
+          <h3>Order Review</h3>
+          
+          <div id="checkout-items-list" class="checkout-items-list">
+            <!-- Rendered dynamically by orders.js -->
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="checkout-subtotal">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>$5.00</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span id="checkout-total">$0.00</span>
+          </div>
+
+          <button type="submit" form="checkout-form" class="btn btn-primary btn-block btn-lg">Place Order</button>
+          
+          <div class="checkout-back-link">
+            <a href="cart.html">&larr; Return to Cart</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 ApexStore Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Javascript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/orders.js"></script>
+
+  <!-- Input Formatting Helpers -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cardNumberInput = document.getElementById('cardNumber');
+      const cardExpiryInput = document.getElementById('cardExpiry');
+
+      // Auto-space card number formatting
+      cardNumberInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        let formatted = '';
+        for (let i = 0; i < value.length; i++) {
+          if (i > 0 && i % 4 === 0) formatted += ' ';
+          formatted += value[i];
+        }
+        e.target.value = formatted;
+      });
+
+      // Auto-slash card expiry formatting
+      cardExpiryInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 2) {
+          e.target.value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        } else {
+          e.target.value = value;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View detailed product specifications, reviews, availability and add products to your cart.">
+  <title>Apex Store | Product Details</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Loader Overlay -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span>ApexStore</span>
+      </a>
+      <nav class="nav-menu" id="nav-auth">
+        <!-- Filled dynamically by auth.js based on session state -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- Product Detail Content Box -->
+  <main>
+    <div id="product-detail-container">
+      <!-- Generated dynamically by products.js -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 ApexStore Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Javascript Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+
+  <!-- Page specific bootstrapping -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAndRenderProductDetail();
+    });
+  </script>
+</body>
+</html>
