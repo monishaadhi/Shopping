@@ -45,7 +45,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'An internal server error occurred.' });
 });
 
-// Start listening
-app.listen(PORT, () => {
-  console.log(`E-commerce API Server is running on http://localhost:${PORT}`);
-});
+// Start listening only when run directly (local development)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`E-commerce API Server is running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
