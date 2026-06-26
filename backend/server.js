@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configure CORS to permit Live Server origin hosts
-const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500'];
+const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500', 'https://your-frontend.vercel.app'];
 app.use(cors({
   origin: (origin, callback) => {
     // Enable requests from allowed origins or empty origins (e.g. mobile apps, local file index.html)
