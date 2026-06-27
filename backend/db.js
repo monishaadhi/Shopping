@@ -6,11 +6,27 @@ let dbPath;
 
 if (process.env.VERCEL) {
   dbPath = '/tmp/ecommerce.db';
-  const sourcePath = path.resolve(__dirname, '../ecommerce.db');
+  const possiblePaths = [
+    path.resolve(__dirname, '../ecommerce.db'),
+    path.resolve(process.cwd(), 'ecommerce.db'),
+    path.resolve(__dirname, 'ecommerce.db'),
+    path.resolve(process.cwd(), 'backend/ecommerce.db')
+  ];
+  let sourcePath = null;
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      sourcePath = p;
+      break;
+    }
+  }
   if (!fs.existsSync(dbPath)) {
     try {
-      fs.copyFileSync(sourcePath, dbPath);
-      console.log('Successfully copied seeded database to /tmp/ecommerce.db');
+      if (sourcePath) {
+        fs.copyFileSync(sourcePath, dbPath);
+        console.log(`Successfully copied seeded database from ${sourcePath} to /tmp/ecommerce.db`);
+      } else {
+        console.error('Source database file not found in any of the search paths:', possiblePaths);
+      }
     } catch (err) {
       console.error('Error copying database to /tmp:', err);
     }
