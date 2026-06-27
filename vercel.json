@@ -2,7 +2,10 @@
   "version": 2,
   "functions": {
     "api/index.js": {
-      "includeFiles": "ecommerce.db"
+      "includeFiles": [
+        "ecommerce.db",
+        "node_modules/better-sqlite3/build/Release/better_sqlite3.node"
+      ]
     }
   },
   "rewrites": [
