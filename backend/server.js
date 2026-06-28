@@ -10,7 +10,7 @@ const orderRoutes = require('./routes/orders');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configure CORS to permit Live Server origin hosts
+// Configure CORS to permit Live Server origin hosts and Vercel deployments
 const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500', 'https://your-frontend.vercel.app'];
 app.use(cors({
   origin: (origin, callback) => {
@@ -20,7 +20,8 @@ app.use(cors({
       origin === 'null' || 
       allowedOrigins.includes(origin) || 
       origin.startsWith('http://localhost:') || 
-      origin.startsWith('http://127.0.0.1:')
+      origin.startsWith('http://127.0.0.1:') ||
+      origin.endsWith('.vercel.app')
     ) {
       callback(null, true);
     } else {
